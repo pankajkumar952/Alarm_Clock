@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alarm — a small bedside clock</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%2312141C' stroke='%23FFB347' stroke-width='6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="midnight">
+
+  <main class="stage">
+
+    <div class="theme-bar">
+      <label class="theme-bar__label" for="themeSelect">Clock design</label>
+      <select id="themeSelect" class="theme-bar__select">
+        <option value="midnight">Midnight</option>
+        <option value="neon">Neon Arcade</option>
+        <option value="sunrise">Sunrise Paper</option>
+        <option value="analog">Analog Classic</option>
+        <option value="flipboard">Flip Board</option>
+        <option value="terminal">Terminal Mono</option>
+      </select>
+    </div>
+
+    <div class="clock" id="clockBody">
+
+      <div class="clock__ears" aria-hidden="true">
+        <span class="ear ear--left"></span>
+        <span class="ear ear--right"></span>
+      </div>
+
+      <header class="clock__header">
+        <p class="clock__date" id="dateLabel">—</p>
+        <span class="clock__status" id="statusPill">idle</span>
+      </header>
+
+      <div class="clock__face">
+
+        <svg class="analog" id="analogFace" viewBox="0 0 200 200" aria-hidden="true">
+          <circle class="analog__rim" cx="100" cy="100" r="92"></circle>
+          <g id="analogTicks"></g>
+          <line id="handHour" class="analog__hand analog__hand--hour" x1="100" y1="100" x2="100" y2="58"></line>
+          <line id="handMinute" class="analog__hand analog__hand--minute" x1="100" y1="100" x2="100" y2="34"></line>
+          <line id="handSecond" class="analog__hand analog__hand--second" x1="100" y1="100" x2="100" y2="28"></line>
+          <circle class="analog__pin" cx="100" cy="100" r="4"></circle>
+        </svg>
+
+        <div class="time" id="timeDisplay" aria-live="off">
+          <span class="time__digits" id="hourMin"></span>
+          <span class="time__sec" id="seconds"></span>
+          <span class="time__meridiem" id="meridiem">AM</span>
+        </div>
+      </div>
+
+      <div class="clock__ringing" id="ringingPanel" hidden>
+        <p class="ringing__label">Wake up</p>
+        <p class="ringing__time" id="ringingTime">—</p>
+        <div class="ringing__actions">
+          <button type="button" class="btn btn--ghost" id="snoozeBtn">Snooze 5 min</button>
+          <button type="button" class="btn btn--accent" id="stopBtn">Stop alarm</button>
+        </div>
+      </div>
+
+      <section class="panel" id="setPanel">
+        <div class="panel__row">
+          <h1 class="panel__title">Alarms</h1>
+          <button type="button" class="btn btn--icon" id="addToggleBtn" aria-expanded="false" aria-controls="addForm">
+            <span id="addToggleLabel">Add alarm</span>
+          </button>
+        </div>
+
+        <form class="add-form" id="addForm" hidden>
+          <div class="add-form__fields">
+            <label class="field">
+              <span class="field__label">Hour</span>
+              <select id="hourInput" class="field__select"></select>
+            </label>
+            <label class="field">
+              <span class="field__label">Minute</span>
+              <select id="minuteInput" class="field__select"></select>
+            </label>
+            <div class="field field--toggle">
+              <span class="field__label">Period</span>
+              <div class="segmented" role="radiogroup" aria-label="AM or PM">
+                <button type="button" class="segmented__opt is-active" data-period="AM" role="radio" aria-checked="true">AM</button>
+                <button type="button" class="segmented__opt" data-period="PM" role="radio" aria-checked="false">PM</button>
+              </div>
+            </div>
+          </div>
+
+          <label class="field field--label">
+            <span class="field__label">Label <em>(optional)</em></span>
+            <input type="text" id="labelInput" class="field__text" placeholder="Morning run, meds, meeting…" maxlength="40">
+          </label>
+
+          <div class="field field--label">
+            <span class="field__label">Alarm tune <em id="tuneCount"></em></span>
+            <div class="tune-row">
+              <select id="tuneInput" class="field__select"></select>
+              <button type="button" class="btn btn--ghost btn--sm" id="previewTuneBtn">▶ Preview</button>
+              <button type="button" class="btn btn--ghost btn--sm" id="shuffleTuneBtn">🔀 Shuffle</button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn--accent btn--full">Set alarm</button>
+        </form>
+
+        <ul class="alarm-list" id="alarmList">
+          <li class="alarm-list__empty" id="emptyState">No alarms yet — add one above.</li>
+        </ul>
+      </section>
+
+    </div>
+
+    <p class="hint">Alarms run only while this tab stays open in your browser.</p>
+    <p class="credit">Built by <strong>Er. Pankaj</strong></p>
+  </main>
+
+<script src="script.js"></script>
+</body>
+</html>
