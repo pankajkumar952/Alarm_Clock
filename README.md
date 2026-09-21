@@ -7,7 +7,7 @@
 **Live Demo:**  
 🌐 **https://pankajkumar952.github.io/Alarm_Clock/**
 
-**Built by Er. Pankaj**
+**Built by Er. Pankaj Kumar**
 
 </div>
 
@@ -417,7 +417,7 @@ The main goals were:
 
 ## 👨‍💻 Author
 
-### Er. Pankaj
+### Er. Pankaj Kumar
 
 **Software Developer | Full Stack Developer | AI/ML Enthusiast**
 
